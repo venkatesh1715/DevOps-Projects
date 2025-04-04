@@ -1,0 +1,11 @@
+---
+- name: downloading java file
+  become: true
+  hosts: test
+  roles:
+    - java
+- name: downloading mysql file
+  become: true
+  hosts: prod
+  roles:
+    - mysql

@@ -1,0 +1,5 @@
+---
+- name: replacing default nginx page with custom html file
+  copy:
+    src: /etc/ansible/roles/nginx/files/index.html
+    dest: /var/www/html/

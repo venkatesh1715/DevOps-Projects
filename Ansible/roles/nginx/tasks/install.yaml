@@ -1,0 +1,5 @@
+---
+- name: create a web
+  apt:
+    name: nginx
+    state: latest
