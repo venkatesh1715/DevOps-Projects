@@ -31,8 +31,6 @@ Create a dockerfile with the following specs:
     ● Ubuntu container 
     ● Apache2 installed 
     ● Apache2 should automatically run once the container starts 
-
-Submit the dockerfile, for assignment completion
 ```
 ## Assignment5
 ```
