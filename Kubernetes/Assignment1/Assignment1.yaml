@@ -1,0 +1,24 @@
+kind: Deployment
+appVerson: apps/v1
+metadata:
+  name: assignment1
+  namespace: default
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selectors:
+    matchlabels:
+      app: nginx
+  template:
+    metadata:
+      name: myweb_nginx
+      namespace: default
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
