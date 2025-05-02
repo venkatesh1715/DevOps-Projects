@@ -1,0 +1,7 @@
+---
+- name: create a text file
+  become: true
+  hosts: all
+  tasks:
+    - name: running script
+      script: /etc/ansible/script2.sh 

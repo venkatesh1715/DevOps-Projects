@@ -1,0 +1,4 @@
+# tasks file for apache for assign3
+- include_tasks: install.yaml
+# tasks file for apache for assign3
+- include_tasks: copy.yaml

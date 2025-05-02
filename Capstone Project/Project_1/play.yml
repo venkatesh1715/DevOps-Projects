@@ -1,0 +1,15 @@
+play.yaml
+---
+- name: master tasks
+  hosts: localhost
+  become: true
+  tasks:
+    - name: tasks for my master machine
+      script: master.sh
+
+- name: slave tasks
+  hosts: all
+  become: true
+  tasks:
+    - name: tasks for my slave machine
+      script: slave.sh
