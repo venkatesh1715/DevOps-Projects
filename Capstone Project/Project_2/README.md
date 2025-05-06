@@ -117,7 +117,7 @@ project-root/
 
 ### 📌 Jenkins Pipeline Execution
 
-![Servers for Jenkins and Kubernetes Configuration](./Output-images/servers-for-jenkins-and-k8s.png)
+![Servers for Jenkins and Kubernetes Configuration](Capstone Project/Project_2/Output-images/servers for jenkins and k8s.png)
 
 ---
 
