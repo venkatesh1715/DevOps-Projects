@@ -1,0 +1,21 @@
+---
+ - name: executing script for java and jenkins on master   
+   hosts: localhost
+   become: true
+   tasks:
+    - script: localhost.sh
+ - name: executing script for Enhanced Kubernetes Node Bootstrap Script 
+   hosts: K8S-Master
+   become: true
+   tasks:
+    - script: k8sinstallation.sh
+ - name: executing script for k8s installation on slave1
+   hosts: K8S-Slave1
+   become: true
+   tasks:
+    - script: k8sinstallation.sh
+ - name: executing script for k8s installation on slaves
+   hosts: K8S-Slave2
+   become: true
+   tasks:
+    - script: k8sinstallation.sh

@@ -1,0 +1,108 @@
+- create one machine (Jekins-master/Ansible-master)  # installing ansible and terraform
+  - sudo apt update
+  - install terraform:  { https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli }
+  - terraform --version
+  - sudo nano ansible.sh  { https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu }
+  - sudo bash ansible.sh
+  - sudo mkdir terrafolder
+  - sudo chown -R ubuntu:ubuntu ~/terrafolder
+    - sudo nano main.tf
+    - terraform init
+    - terraform plan
+    - terraform apply
+      - connect into all the three machines
+	  - sudo apt update -y
+
+[configuring connection for ansible & Ansible works]
+- Jekins-master/Ansible-master
+  - generating public key and private key:
+    cd .ssh
+    ls
+	  authorized_keys
+	ssh-keygen  {just give enter to all the steps asking}
+	ls
+	  authorized_keys  id_rsa  id_rsa.pub
+	sudo cat id_rsa.pub
+	  the public key is showing now so copy the entire content
+	  
+- K8S-Master/Jenkins-Slave,K8S-Slave1,K8S-Slave2
+  - in 3 slave machine:
+    - paste the public key copyed in master:
+        cd .ssh
+	    ls
+	      authorized_keys
+	    sudo nano authorized_keys
+	      already one content is there dont worry about it and come to next line and paste the public key that was copyed in master machine
+
+# installing kubernetes and docker		  
+- Jekins-master/Ansible-master
+  - cd /etc/ansible/
+  - ls
+  - sudo nano hosts
+  - ansible -m ping all
+  - sudo nano play.yaml
+  - sudo nano localhost.sh  # instlling java and jekins
+  - sudo nano master.sh     # instlling java and installing k8s master
+  - sudo nano slaves.sh     # installing k8s slaves
+  - ansible-playbook play.yaml --syntax-check
+  - ansible-playbook play.yaml --check
+  - ansible-playbook play.yaml
+  
+- K8S-Master/Jenkins-Slave
+  - sudo su
+  - sudo nano initalise-k8s.yaml       # only on master machine to initalize all needs  # it generate one tocken copy it  #eg: kubeadm join 172.35.25.65:6443 ... 58f8549f
+  - sudo bash initalise-k8s.yaml
+  - sudo apt-get install docker.io -y  # installing docker
+
+- K8S-Slave1,K8S-Slave2
+  - sudo su
+  - sudo kubeadm reset pre-flight checks  # Perform pre-flight checks
+  - <your-token --v=5>                    # Paste the join command you got from the master node and append `--v=5` at the end but first use sudo su command to become root (avoid using sudo your-token)
+  - sudo apt-get install docker.io -y     # installing docker
+
+- K8S-Master/Jenkins-Slave
+  - kubectl get nodes
+
+[setting up jekins dashboard]
+  - browser: <Jekins-master/Ansible-master public-ip>:8080
+  [node configuring]
+  - jenkins > manage jekins > security > 
+      Agent: Tcp port for inbound agent > select as random > save
+  - jenkins > manage jekins > plugins > avalable plugins > SSH Agent > install
+  - jenkins > manage jekins > nodes > new nodes
+    - K8S-Master/Jenkins-Slave > permenent agent > create
+	  - remote root dir: /home/ubuntu/jenkins
+	  - labels: slave1
+	  - launch method: launch agent via SSH
+	    - Hosts: <paste the private ip of my K8S-Master/Jenkins-Slave machine>
+		- credentials > add > 
+		  - Kind: SSH username with private key
+		  - username: ubuntu
+		  - private key > enter directly > paste the pem key of my slave1 machine > add	
+		- host key verification statergy > non verifying verification statergy
+  
+  # setting up docker hub credentials
+    jekins dashboard > manage jekins > credentials > 
+	  credentials
+	    domain 
+		(global) <- click this
+		  - Add Credentials
+		    - username (username of my docker hub)
+			- password (password of my docker hub)  # if we face difficult to connect because of wrong password we can create a docker tocken key in docker hub like github webhook
+			- create
+			  - now one id is given (copy the id like f1542eses4sd...sere477ere4r) # to use in pipeline script
+  
+  # creating a pipeline job
+  - Job > Pipeline > ok
+    - build triggers: github hook trigger for GITScm polling  # go and create a webhook on github for this step
+	- pipeline: pipeline script
+	
+# git hub
+  - create deploy.yaml
+  - create svc.yaml
+	
+
+- K8S-Master/Jenkins-Slave
+  - sudo docker images
+  - kubectl get deployements
+  - kubectl get svc
