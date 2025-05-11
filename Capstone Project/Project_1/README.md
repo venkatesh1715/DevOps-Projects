@@ -1,4 +1,4 @@
-```
+````
 # 🚀 Capstone Project: DevOps Lifecycle Implementation for Abode Software
 
 ## 🧩 Scenario
@@ -60,20 +60,20 @@ A fully automated, branch-based DevOps pipeline that:
 
 ## 🔗 Repository Structure
 
-```
-
-Capstone Project/
-└── Project\_1/
-├── Arch.png                       # Architecture Diagram
-├── Capstone_1.pdf                 # contains project steps screanshoots
-├── Dockerfile                     # dockerfile to install apache in ubuntu
-├── jenkins script for job1,2,3.sh # jenkins scripts for each jobs**
-├── play.yml                       # ansible file to execute master.sh and slave.sh
-├── master.sh                      # shell script to install java and jenkins in master machine
-├── slave.sh                       # shell script to install java and docker in slave machine
-└── README.md                      # project overview
-
-```
+```plaintext
+Capstone_Project/
+└── Project_1/
+    ├── Arch.png                         # Architecture Diagram
+    ├── Capstone_1.pdf                   # Contains project step screenshots
+    ├── Dockerfile                       # Dockerfile to install Apache in Ubuntu
+    ├── jenkins_script_job1.sh           # Jenkins script for Job 1 (Build)
+    ├── jenkins_script_job2.sh           # Jenkins script for Job 2 (Test)
+    ├── jenkins_script_job3.sh           # Jenkins script for Job 3 (Prod Deploy)
+    ├── play.yml                         # Ansible playbook to execute master.sh and slave.sh
+    ├── master.sh                        # Shell script to install Java and Jenkins on master node
+    ├── slave.sh                         # Shell script to install Java and Docker on slave node
+    └── README.md                        # Project overview
+````
 
 ---
 
@@ -82,5 +82,3 @@ Capstone Project/
 > ✅ Project completed and tested in a local CI/CD lab environment.
 
 ---
-
-```
