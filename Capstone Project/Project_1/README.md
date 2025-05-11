@@ -1,5 +1,3 @@
----
-
 ```
 # 🚀 Capstone Project: DevOps Lifecycle Implementation for Abode Software
 
